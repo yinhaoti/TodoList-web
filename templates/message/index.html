@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Messages</title>
+    <style>
+        form {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" action="{{ url_for('.add') }}">
+        <input type="text" name="content" placeholder="content">
+        <input type="text" name="username" placeholder="username">
+        <button type="submit">提交留言</button>
+    </form>
+
+    <!--所有的留言 -->
+    <div>
+        {% for m in msgs %}
+        <div>
+            {{ m.content }} from {{ m.username }}
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
