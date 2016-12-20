@@ -1,0 +1,4 @@
+# My configurations:
+config.py
+db.sqlite
+flask.log
