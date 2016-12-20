@@ -18,8 +18,49 @@ def index():
     ms = Model.query.all()
     xfrs = random_string()
     xfrs_dict[xfrs] = 0
-    return render_template('user/index.html',xfrs=xfrs, user_list=ms)
+    if 'username' in session:
+        return render_template('user/index.html', xfrs=xfrs, username=session['username'], user_list=ms)
+    return 'You are not logged in'
 
+
+@main.route('/login', methods=['POST','GET'])
+def login():
+    error = ""
+
+    if request.method == 'POST':
+        form = request.form
+        u = User(form)
+        # print(form)
+        if u.valid_login():
+            print('login success')
+            # 把id写入session
+            # 这个session是flask自带的
+            session['username'] = u.username
+            return redirect(url_for('.index'))
+        else:
+            error = 'login fail'
+
+    return render_template('user/login.html',result=error)
+
+
+@main.route('/register', methods=['POST','GET'])
+def register():
+    error = " "
+
+    if request.method == 'POST':
+        form = request.form
+        u = User(form)
+        # print(form)
+        valid, msgs = u.valid_register()
+        if valid:
+            print('register success')
+            u.save()
+            return redirect(url_for('.login'))
+        else:
+            print('register fail:', msgs)
+            error = msgs
+
+    return render_template('user/register.html', error=error)
 
 
 @main.route('/edit/<id>')
@@ -54,7 +95,14 @@ def delete(id):
     xfrs = r.get('code')
     if xfrs in xfrs_dict:
         xfrs_dict.pop(xfrs)
+        ms = User.find_by_ID(id)
+        # session清空
+        if ms.username == session['username']:
+            session.pop('username', None)
+
         Model.delete_by_ID(id)
+
+
         return redirect(url_for('.index'))
     else:
         return 'ERROR 非法链接'

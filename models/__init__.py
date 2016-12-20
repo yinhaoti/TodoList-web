@@ -29,6 +29,14 @@ class ModelMixin(object):
         m.delete()
 
     @classmethod
+    def find_by_ID(cls, model_id):
+        """
+        :param model_id:
+        :return: cls
+        """
+        return cls.query.get(model_id)
+
+    @classmethod
     def update(cls, id, form):
         m = cls.query.get(id)
         m.username = form.get('username', m.username)
@@ -43,3 +51,4 @@ class ModelMixin(object):
         db.session.commit()
         # self.deleted = True
         # self.save()
+

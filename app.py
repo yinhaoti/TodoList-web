@@ -15,6 +15,7 @@ app = Flask(__name__)
 manager = Manager(app)
 
 
+
 def configured_app():
     # 这一句是套路, 不加会有 warning
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True

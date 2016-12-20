@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>user index</title>
+    <title>User index</title>
 </head>
 <body>
+    <h1>Log in as {{ username }}</h1>
     <form action="{{ url_for('.add') }}" method="post">
 
         <input type="hidden" name="xfrs" value="{{ xfrs }}">
         <input name="username">
+        <input name="password">
         <button>add</button>
     </form>
     {% for u in user_list %}
