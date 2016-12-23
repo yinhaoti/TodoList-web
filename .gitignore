@@ -1,5 +1,12 @@
+#Python
+__pycache__/
+
+
+
+
 # My configurations:
 config.py
 db.sqlite
 flask.log
 *.testigonore
+.idea
