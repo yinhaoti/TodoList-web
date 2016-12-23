@@ -16,6 +16,20 @@ manager = Manager(app)
 
 
 
+# 自定义过滤器
+# 过滤器的名字是参数 xcxx
+# str | xcxx
+@app.template_filter('format_time')
+def format_time(t):
+    import time
+    format = '%Y-%m-%d %l:%M %p'
+    # print(type(t), t)
+    value = time.localtime(int(t))
+    dt = time.strftime(format, value)
+    return dt
+
+
+
 def configured_app():
     # 这一句是套路, 不加会有 warning
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True

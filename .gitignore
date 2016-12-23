@@ -2,3 +2,4 @@
 config.py
 db.sqlite
 flask.log
+*.testigonore

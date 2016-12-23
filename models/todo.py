@@ -10,6 +10,7 @@ class Todo(db.Model, ModelMixin):
     task = db.Column(db.Text)
     created_time = db.Column(db.Integer)
     updated_time = db.Column(db.Integer)
+    complete = db.Column(db.Boolean)
     # 这是一个外键
     # user_id = db.Column(db.Integer, db.ForeignKey('stb_users.id'))
     # # relationship
@@ -19,6 +20,10 @@ class Todo(db.Model, ModelMixin):
         print('chest init', form)
         self.task = form.get('task', '')
         self.created_time = int(time.time())
+        self.complete = False
+
+    def complete(self):
+        complete = True
 
     @classmethod
     def update(cls, id, form):
