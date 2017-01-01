@@ -1,8 +1,0 @@
-[2016-12-20 15:01:12 +0800] [22793] [INFO] Starting gunicorn 19.6.0
-[2016-12-20 15:01:12 +0800] [22793] [INFO] Listening at: http://0.0.0.0:8000 (22793)
-[2016-12-20 15:01:12 +0800] [22793] [INFO] Using worker: sync
-[2016-12-20 15:01:12 +0800] [22796] [INFO] Booting worker with pid: 22796
-[2016-12-20 15:03:01 +0800] [22793] [INFO] Handling signal: int
-[2016-12-20 15:03:01 +0800] [22796] [INFO] Worker exiting (pid: 22796)
-chest init ImmutableMultiDict([('task', '的')])
-[2016-12-20 15:03:01 +0800] [22793] [INFO] Shutting down: Master
