@@ -20,7 +20,7 @@ def index():
     xfrs_dict[xfrs] = 0
     if 'username' in session:
         return render_template('user/index.html', xfrs=xfrs, username=session['username'], user_list=ms)
-    return 'You are not logged in'
+    return redirect(url_for('.login'))
 
 
 @main.route('/login', methods=['POST','GET'])

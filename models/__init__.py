@@ -10,6 +10,7 @@ def timestamp():
 
 
 class ModelMixin(object):
+
     def __repr__(self):
         """print function"""
         class_name = self.__class__.__name__
@@ -51,4 +52,3 @@ class ModelMixin(object):
         db.session.commit()
         # self.deleted = True
         # self.save()
-

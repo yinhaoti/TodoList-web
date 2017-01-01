@@ -9,7 +9,9 @@ Model = Todo
 @main.route('/')
 def index():
     ms = Model.query.all()
-    return render_template('todo/index.html', todo_list=ms)
+    todo_finished_num = Todo.sizeof('finished')
+    todo_unfinished_num = Todo.sizeof('unfinished')
+    return render_template('todo/index.html', todo_list=ms, finished_num = todo_finished_num, unfinished_num = todo_unfinished_num)
 
 
 # 处理数据返回重定向
@@ -36,4 +38,14 @@ def update(id):
 @main.route('/delete/<int:id>')
 def delete(id):
     Model.delete_by_ID(id)
+    return redirect(url_for('.index'))
+
+@main.route('/complete/<int:id>')
+def complete(id):
+    Model.complete(id)
+    return redirect(url_for('.index'))
+
+@main.route('/uncomplete/<int:id>')
+def undo_complete(id):
+    Model.undo_complete(id)
     return redirect(url_for('.index'))
