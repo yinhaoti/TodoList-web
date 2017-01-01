@@ -10,7 +10,7 @@ class Todo(db.Model, ModelMixin):
     task = db.Column(db.Text)
     created_time = db.Column(db.Integer)
     updated_time = db.Column(db.Integer)
-    finished = db.Column(db.Text)
+    done = db.Column(db.Text)
 
     # 这是一个外键
     # user_id = db.Column(db.Integer, db.ForeignKey('stb_users.id'))
@@ -21,19 +21,19 @@ class Todo(db.Model, ModelMixin):
         print('chest init', form)
         self.task = form.get('task', '')
         self.created_time = int(time.time())
-        self.finished = "False"
+        self.finish = "False"
 
 
     @classmethod
     def complete(cls, id):
         m = cls.find_by_ID(id)
-        m.finished = "True"
+        m.done = "True"
         m.save()
 
     @classmethod
     def undo_complete(cls, id):
         m = cls.find_by_ID(id)
-        m.finished = "False"
+        m.done = "False"
         m.save()
 
     @classmethod
@@ -47,14 +47,14 @@ class Todo(db.Model, ModelMixin):
         ms = cls.query.all()
         counter = 0
 
-        if filter == 'unfinished':
+        if filter == 'notdone':
             filter = 'False'
         else:
             filter = 'True'
 
         for item in ms:
             # print(item.finished, filter)
-            if item.finished == filter:
+            if item.done == filter:
                 counter += 1
         return counter
 

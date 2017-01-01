@@ -11,3 +11,4 @@ flask.log
 *.testigonore
 .idea/
 access.log
+migrations/versions/
