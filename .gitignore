@@ -10,3 +10,4 @@ db.sqlite
 flask.log
 *.testigonore
 .idea/
+access.log
