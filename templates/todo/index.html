@@ -77,7 +77,7 @@
         <br><br>
 
         <h4>正在进行 <span class="badge">{{ unfinished_num }}</span> </h4>
-        {% for todo in todo_list if todo.finished == 'False' %}
+        {% for todo in todo_list if todo.done == 'False' %}
 
             <div class="panel panel-default row">
                 <div class="panel-body task_content" id="task_{{ todo.id }}">
@@ -116,7 +116,7 @@
         {% endfor %}
 
         <h4>已完成 <span class="badge">{{ finished_num }}</span></h4>
-        {% for todo in todo_list if todo.finished != 'False' %}
+        {% for todo in todo_list if todo.done != 'False' %}
 
         <div class="panel panel-default row">
                 <div class="panel-body task_content" id="task_{{ todo.id }}">

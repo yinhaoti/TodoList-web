@@ -21,7 +21,7 @@ class Todo(db.Model, ModelMixin):
         print('chest init', form)
         self.task = form.get('task', '')
         self.created_time = int(time.time())
-        self.finish = "False"
+        self.done = "False"
 
 
     @classmethod
