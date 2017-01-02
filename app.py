@@ -70,7 +70,7 @@ def register_routes(app):
     在这个函数里面 import 并注册蓝图
     """
     from routes.todo import main as routes_todo
-    app.register_blueprint(routes_todo, url_prefix='/todo')
+    app.register_blueprint(routes_todo, url_prefix='')
 
     from routes.user import main as routes_user
     app.register_blueprint(routes_user, url_prefix='/user')

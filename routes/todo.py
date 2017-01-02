@@ -9,8 +9,8 @@ Model = Todo
 @main.route('/')
 def index():
     ms = Model.query.all()
-    todo_finished_num = Todo.sizeof('done')
-    todo_unfinished_num = Todo.sizeof('notdone')
+    todo_finished_num = Model.sizeof('done')
+    todo_unfinished_num = Model.sizeof('notdone')
     return render_template('todo/index.html', todo_list=ms, finished_num = todo_finished_num, unfinished_num = todo_unfinished_num)
 
 
