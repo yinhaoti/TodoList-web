@@ -1,0 +1,20 @@
+.delete {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+.complete {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+
+}
+#edit {
+    float: right;
+}
+.task_content {
+    position: relative;
+}
+.task_footer {
+    position: relative;
+}

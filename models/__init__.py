@@ -37,12 +37,6 @@ class ModelMixin(object):
         """
         return cls.query.get(model_id)
 
-    @classmethod
-    def update(cls, id, form):
-        m = cls.query.get(id)
-        m.username = form.get('username', m.username)
-        m.save()
-
     def save(self):
         db.session.add(self)
         db.session.commit()
