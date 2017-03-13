@@ -10,6 +10,11 @@ class User(db.Model, ModelMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.Text)
     password = db.Column(db.Text)
+    # 定义一个关系
+    todos = db.relationship('Todo',
+                            backref='todo',
+                            foreign_keys='Todo.user_id',
+                            lazy='dynamic')
 
     def __init__(self, form):
         self.username = form.get('username', '')
@@ -21,7 +26,6 @@ class User(db.Model, ModelMixin):
         m.username = form.get('username', m.username)
         m.password = form.get('password', m.password)
         m.save()
-
 
     def valid_username(self):
         return User.query.filter_by(username=self.username).first() == None

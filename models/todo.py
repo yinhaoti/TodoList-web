@@ -11,6 +11,7 @@ class Todo(db.Model, ModelMixin):
     created_time = db.Column(db.Integer)
     updated_time = db.Column(db.Integer)
     done = db.Column(db.Text)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     # 这是一个外键
     # user_id = db.Column(db.Integer, db.ForeignKey('stb_users.id'))
@@ -23,6 +24,13 @@ class Todo(db.Model, ModelMixin):
         self.created_time = int(time.time())
         self.done = "False"
 
+
+    @classmethod
+    def new(cls, form, userID):
+        m = cls(form)
+        m.user_id = userID
+        m.save()
+        return m
 
     @classmethod
     def complete(cls, id):

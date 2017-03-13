@@ -26,7 +26,6 @@ def index():
 @main.route('/login', methods=['POST','GET'])
 def login():
     error = ""
-
     if request.method == 'POST':
         form = request.form
         u = User(form)
@@ -36,7 +35,7 @@ def login():
             # 把id写入session
             # 这个session是flask自带的
             session['username'] = u.username
-            return redirect(url_for('.index'))
+            return redirect(url_for('todo.index'))
         else:
             error = 'login fail'
 
@@ -101,7 +100,6 @@ def delete(id):
             session.pop('username', None)
 
         Model.delete_by_ID(id)
-
 
         return redirect(url_for('.index'))
     else:
