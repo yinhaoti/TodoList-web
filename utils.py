@@ -10,3 +10,11 @@ def log(*args, **kwargs):
     dt = time.strftime(format, value)
     with open('log.gua.txt', 'a', encoding='utf-8') as f:
         print(dt, *args, file=f, **kwargs)
+
+def format_time(t):
+    import time
+    format = '%Y-%m-%d %l:%M %p'
+    # print(type(t), t)
+    value = time.localtime(int(t))
+    dt = time.strftime(format, value)
+    return dt

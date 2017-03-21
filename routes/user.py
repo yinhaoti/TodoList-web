@@ -62,6 +62,7 @@ def register():
     return render_template('user/register.html', error=error)
 
 
+
 @main.route('/edit/<id>')
 def edit(id):
     m = Model.query.get(id)

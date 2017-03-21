@@ -3,7 +3,7 @@ from models.user import User
 from routes import *
 from flask import jsonify
 
-main = Blueprint('todo', __name__)
+main = Blueprint('ajax_todo', __name__)
 
 Model = Todo
 
@@ -40,7 +40,7 @@ def index():
     todo_list = Model.query.all()
     todo_finished_num = Model.sizeof('done')
     todo_unfinished_num = Model.sizeof('notdone')
-    #print('ALLTODO', todo_list, type(todo_list))
+    print('ALLTODO', todo_list, type(todo_list))
 
     currentUser = current_user()
     if(currentUser==None):
@@ -51,7 +51,7 @@ def index():
     doneNum, notDoneNum = getDoneNumber(filter_todo_list)
     print('filterTODO', filter_todo_list, type(filter_todo_list))
     print(doneNum, notDoneNum)
-    return render_template('todo/index.html', todo_list=filter_todo_list, finished_num = doneNum, unfinished_num = notDoneNum)
+    return render_template('todo/ajax_index.html', todo_list=filter_todo_list, finished_num = doneNum, unfinished_num = notDoneNum)
 
 
 # 处理数据返回重定向
@@ -62,14 +62,6 @@ def edit(id):
 
 
 @main.route('/add', methods=['POST'])
-def add():
-    form = request.form
-    print(form)
-    currentUser = current_user()
-    Todo.new(form, currentUser.id)
-    return redirect(url_for('.index'))
-
-@main.route('/ajax_add', methods=['POST'])
 def ajax_add():
     form = request.form
     print(form)

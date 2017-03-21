@@ -20,7 +20,7 @@ manager = Manager(app)
 # 过滤器的名字是参数 xcxx
 # str | xcxx
 @app.template_filter('format_time')
-def format_time(t):
+def filter_format_time(t):
     import time
     format = '%Y-%m-%d %l:%M %p'
     # print(type(t), t)
@@ -72,11 +72,16 @@ def register_routes(app):
     from routes.todo import main as routes_todo
     app.register_blueprint(routes_todo, url_prefix='')
 
+    from routes.ajax_todo import main as routes_ajax_todo
+    app.register_blueprint(routes_ajax_todo, url_prefix='/ajax_todo')
+
     from routes.user import main as routes_user
     app.register_blueprint(routes_user, url_prefix='/user')
 
     from routes.message import main as routes_msg
     app.register_blueprint(routes_msg, url_prefix='/msg')
+
+
 
 
 # 自定义的命令行命令用来运行服务器
