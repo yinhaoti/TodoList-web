@@ -11,10 +11,10 @@ def current_user():
     username = session.get('username', '')
     if (username != ''):
         currentUser = User.query.filter_by(username=username).first()
-        print('loginUseris', currentUser)
+        #print('loginUseris', currentUser)
         return currentUser
     else:
-        print('not login,use userID=1')
+        #print('not login,use userID=1')
         # print(User.query.filter_by(id=1).first())
         if(User.query.filter_by(id=1).first()==None):
             return None
@@ -24,23 +24,25 @@ def getDoneNumber(todo_list):
     doneNum = 0
     notDoneNum = 0
     for todo in todo_list:
-        print('in for', todo)
+        #print('in for', todo)
         if(todo.done == 'True'):
             doneNum += 1
-            print(doneNum)
+            #print(doneNum)
         else:
             notDoneNum += 1
-            print(notDoneNum)
+            #print(notDoneNum)
     return doneNum, notDoneNum
 
 
 
 @main.route('/')
 def index():
+    #print(url_for('ajax_todo.ajax_add'))
+
     todo_list = Model.query.all()
     todo_finished_num = Model.sizeof('done')
     todo_unfinished_num = Model.sizeof('notdone')
-    print('ALLTODO', todo_list, type(todo_list))
+    # print('ALLTODO', todo_list, type(todo_list))
 
     currentUser = current_user()
     if(currentUser==None):
@@ -49,8 +51,9 @@ def index():
     #user_todo_finished_num = filter_todo_list.sizeof('done')
     #user_todo_unfinished_num = filter_todo_list.sizeof('notdone')
     doneNum, notDoneNum = getDoneNumber(filter_todo_list)
+    filter_todo_list.reverse()
     print('filterTODO', filter_todo_list, type(filter_todo_list))
-    print(doneNum, notDoneNum)
+    #print(doneNum, notDoneNum)
     return render_template('todo/ajax_index.html', todo_list=filter_todo_list, finished_num = doneNum, unfinished_num = notDoneNum)
 
 
@@ -62,7 +65,7 @@ def edit(id):
 
 
 @main.route('/add', methods=['POST'])
-def ajax_add():
+def add():
     form = request.form
     print(form)
     currentUser = current_user()
@@ -72,10 +75,12 @@ def ajax_add():
             {
                 "id": newTodo.id,
                 "task": newTodo.task,
-                "created_time": newTodo.created_time
+                "created_time": newTodo.created_time,
+                "done": newTodo.done
             }
         ],
         "status": {
+            "success": True,
             "code": 200,
             "message": "ajax post success."
         }
@@ -87,20 +92,29 @@ def ajax_add():
 def update(id):
     form = request.form
     Model.update(id, form)
-    return redirect(url_for('.index'))
+    return redirect(url_for('ajax_todo.index'))
 
 
 @main.route('/delete/<int:id>')
 def delete(id):
     Model.delete_by_ID(id)
-    return redirect(url_for('.index'))
+    data = {
+        "status":
+            {
+            "success": True,
+            "code": 200,
+            "message": "ajax delete success."
+        }
+    }
+
+    return jsonify(data)
 
 @main.route('/complete/<int:id>')
 def complete(id):
     Model.complete(id)
-    return redirect(url_for('.index'))
+    return redirect(url_for('ajax_todo.index'))
 
 @main.route('/uncomplete/<int:id>')
 def undo_complete(id):
     Model.undo_complete(id)
-    return redirect(url_for('.index'))
+    return redirect(url_for('ajax_todo.index'))

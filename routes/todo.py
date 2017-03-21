@@ -49,8 +49,9 @@ def index():
     #user_todo_finished_num = filter_todo_list.sizeof('done')
     #user_todo_unfinished_num = filter_todo_list.sizeof('notdone')
     doneNum, notDoneNum = getDoneNumber(filter_todo_list)
-    print('filterTODO', filter_todo_list, type(filter_todo_list))
-    print(doneNum, notDoneNum)
+    filter_todo_list.reverse()
+    #print('filterTODO', filter_todo_list, type(filter_todo_list))
+    #print(doneNum, notDoneNum)
     return render_template('todo/index.html', todo_list=filter_todo_list, finished_num = doneNum, unfinished_num = notDoneNum)
 
 
@@ -69,27 +70,6 @@ def add():
     Todo.new(form, currentUser.id)
     return redirect(url_for('.index'))
 
-@main.route('/ajax_add', methods=['POST'])
-def ajax_add():
-    form = request.form
-    print(form)
-    currentUser = current_user()
-    newTodo = Todo.new(form, currentUser.id)
-    data = {
-        "data": [
-            {
-                "id": newTodo.id,
-                "task": newTodo.task,
-                "created_time": newTodo.created_time
-            }
-        ],
-        "status": {
-            "code": 200,
-            "message": "ajax post success."
-        }
-    }
-
-    return jsonify(data)
 
 @main.route('/update/<id>', methods=['POST'])
 def update(id):

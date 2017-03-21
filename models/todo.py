@@ -13,7 +13,6 @@ class Todo(db.Model, ModelMixin):
     done = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-
     # 这是一个外键
     # user_id = db.Column(db.Integer, db.ForeignKey('stb_users.id'))
     # # relationship
