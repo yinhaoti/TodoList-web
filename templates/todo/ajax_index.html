@@ -58,7 +58,7 @@
                             <input class="form-control" style="background:transparent;border:0;box-shadow:0 0 0 0;" type="text" name="task" value="{{ todo.task }}">
                         </form>
                         <div class="delete">
-                            <a href="jacascript:;" onclick="deleteTodo( this, '{{url_for('ajax_todo.delete', id=todo.id)}}', {{todo.id}} )">
+                            <a href="javascript:void(0);" onclick="deleteTodo( this, '{{url_for('ajax_todo.delete', id=todo.id)}}', {{todo.id}} )">
                                 <button class="close delete_todo_button" type="button">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </button>
@@ -91,7 +91,7 @@
                             <input class="form-control" style="background:transparent;border:0;box-shadow:0 0 0 0;" type="text" name="task" value="{{ todo.task }}">
                         </form>
                         <div class="delete">
-                            <a href="jacascript:;" onclick="deleteTodo( this, '{{url_for('ajax_todo.delete', id=todo.id)}}', {{todo.id}} )">
+                            <a href="javascript:void(0);" onclick="deleteTodo( this, '{{url_for('ajax_todo.delete', id=todo.id)}}', {{todo.id}} )">
                                 <button class="close delete_todo_button" type="button">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </button>

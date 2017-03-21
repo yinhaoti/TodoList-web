@@ -40,7 +40,7 @@ function ajaxAddTodo(todo_id, todo_task, todo_created_time) {
                             <input class="form-control" style="background:transparent;border:0;box-shadow:0 0 0 0;" type="text" name="task" value="${todo_task}">
                         </form>
                         <div class="delete">
-                            <a href="jacascript:;" onclick="deleteTodo( this, '/ajax_todo/delete/${todo_id}', ${todo_id} )">
+                            <a href="javascript:void(0);" onclick="deleteTodo( this, '/ajax_todo/delete/${todo_id}', ${todo_id} )">
                                 <button class="close delete_todo_button" type="button">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </button>
