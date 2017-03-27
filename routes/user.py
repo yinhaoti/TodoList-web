@@ -13,6 +13,27 @@ def random_string():
     import uuid
     return str(uuid.uuid4())
 
+
+def current_user():
+    username = session.get('username', '')
+    if (username != ''):
+        currentUser = User.query.filter_by(username=username).first()
+        print('loginUseris', currentUser)
+        return currentUser
+    else:
+        print('not login,use userID=1')
+        # print(User.query.filter_by(id=1).first())
+        if(User.query.filter_by(id=1).first()==None):
+            # 如果没有用户1，那么创建第一个匿名用户
+            form = {
+                'username': 'Guest',
+                'password': '123456'
+            }
+            currentUser = User.new(form)
+            return currentUser
+        return User.query.filter_by(id=1).first()
+
+
 @main.route('/')
 def index():
     ms = Model.query.all()
@@ -41,6 +62,12 @@ def login():
 
     return render_template('user/login.html',result=error)
 
+@main.route('/logout', methods=['POST','GET'])
+def logout():
+    currentUser = current_user()
+    # session清空
+    session.pop('username', None)
+    return redirect(url_for('todo.index'))
 
 @main.route('/register', methods=['POST','GET'])
 def register():
@@ -54,7 +81,10 @@ def register():
         if valid:
             print('register success')
             u.save()
-            return redirect(url_for('.login'))
+            # 把id写入session
+            # 这个session是flask自带的
+            session['username'] = u.username
+            return redirect(url_for('todo.index'))
         else:
             print('register fail:', msgs)
             error = msgs

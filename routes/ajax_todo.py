@@ -2,23 +2,11 @@ from models.todo import Todo
 from models.user import User
 from routes import *
 from flask import jsonify
+import routes.user
 
 main = Blueprint('ajax_todo', __name__)
 
 Model = Todo
-
-def current_user():
-    username = session.get('username', '')
-    if (username != ''):
-        currentUser = User.query.filter_by(username=username).first()
-        #print('loginUseris', currentUser)
-        return currentUser
-    else:
-        #print('not login,use userID=1')
-        # print(User.query.filter_by(id=1).first())
-        if(User.query.filter_by(id=1).first()==None):
-            return None
-        return User.query.filter_by(id=1).first()
 
 def getDoneNumber(todo_list):
     doneNum = 0
@@ -44,7 +32,7 @@ def index():
     todo_unfinished_num = Model.sizeof('notdone')
     # print('ALLTODO', todo_list, type(todo_list))
 
-    currentUser = current_user()
+    currentUser = routes.user.current_user()
     if(currentUser==None):
         return redirect(url_for('user.register'))
     filter_todo_list = Todo.query.filter_by(user_id=currentUser.id).all()
@@ -54,7 +42,7 @@ def index():
     filter_todo_list.reverse()
     print('filterTODO', filter_todo_list, type(filter_todo_list))
     #print(doneNum, notDoneNum)
-    return render_template('todo/ajax_index.html', todo_list=filter_todo_list, finished_num = doneNum, unfinished_num = notDoneNum)
+    return render_template('todo/ajax_index.html', todo_list=filter_todo_list, finished_num = doneNum, unfinished_num = notDoneNum, cuurent_user= currentUser)
 
 
 # 处理数据返回重定向
@@ -68,7 +56,7 @@ def edit(id):
 def add():
     form = request.form
     print(form)
-    currentUser = current_user()
+    currentUser = routes.user.current_user()
     newTodo = Todo.new(form, currentUser.id)
     data = {
         "data": [

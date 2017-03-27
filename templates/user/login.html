@@ -68,7 +68,7 @@
 
 <div class="container">
 
-    <form class="form-signin" role="form" action="{{ url_for('.login') }}" method="post">
+    <form class="form-signin" role="form" action="{{ url_for('user.login') }}" method="post">
         <h2 class="form-signin-heading">请登录</h2>
         <input type="text" class="form-control" placeholder="请输入用户名" name="username" required autofocus>
         <input type="password" class="form-control" placeholder="请输入密码" name="password" required>
