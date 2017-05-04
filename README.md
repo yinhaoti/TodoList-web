@@ -26,13 +26,23 @@ This is a TodoList app based on Flask+Gunicorn+Nginx+Supervisor
 1. 实现表单todo的用户登录注册功能
 2. 添加了navBar
 
+### Version 0.3
+2017-03-28
+1. 改变页面title
+
+### Version 0.4
+2017-05-04
+1. js中添加ajax请求，获得todo的数据，可以替换掉jinja2模板
+2. 建立变量存所有后端发来的todo数据
+
+### Version 0.5
+2017-05-05
+1. ajax实现修改，完成，排序
+2. 完全替代jinja2模板，实现前后端分离
+
 ### 下一个版本:
-1. ajax实现修改
-2. ajax完成功能
-    - 首先需要一个list记录完和未完成的todo_id
-    - 随时记录状态，包括删除
-    - 然后根据id排序，找到完成未完成的todo，应该放到哪个todo之前或者之后
 3. ajax的登录注册弹框功能
+4. 获得免费的https证书
 
 
 

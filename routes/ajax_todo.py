@@ -8,18 +8,28 @@ main = Blueprint('ajax_todo', __name__)
 
 Model = Todo
 
-def getDoneNumber(todo_list):
+def getDoneTodo(todo_list):
     doneNum = 0
     notDoneNum = 0
+    doneTodo = []
+    notDoneTodo = []
     for todo in todo_list:
         #print('in for', todo)
+        dict_todo = {
+            'done': todo.done,
+            'task': todo.task,
+            'created_time': todo.created_time,
+            'id': todo.id
+        }
         if(todo.done == 'True'):
             doneNum += 1
             #print(doneNum)
+            doneTodo.append(dict_todo)
         else:
             notDoneNum += 1
+            notDoneTodo.append(dict_todo)
             #print(notDoneNum)
-    return doneNum, notDoneNum
+    return doneNum, notDoneNum, doneTodo, notDoneTodo
 
 
 
@@ -38,15 +48,41 @@ def index():
     filter_todo_list = Todo.query.filter_by(user_id=currentUser.id).all()
     #user_todo_finished_num = filter_todo_list.sizeof('done')
     #user_todo_unfinished_num = filter_todo_list.sizeof('notdone')
-    doneNum, notDoneNum = getDoneNumber(filter_todo_list)
+    doneNum, notDoneNum, doneTodo, notDoneTodo = getDoneTodo(filter_todo_list)
     filter_todo_list.reverse()
     print('filterTODO', filter_todo_list, type(filter_todo_list))
     #print(doneNum, notDoneNum)
     return render_template('todo/ajax_index.html', todo_list=filter_todo_list, finished_num = doneNum, unfinished_num = notDoneNum, cuurent_user= currentUser)
 
 
+
+@main.route('/getInfo', methods=['POST'])
+def getInfo():
+
+    currentUser = routes.user.current_user()
+    if(currentUser==None):
+        return redirect(url_for('user.register'))
+    filter_todo_list = Todo.query.filter_by(user_id=currentUser.id).all()
+
+    doneNum, notDoneNum, doneTodos, notDoneTodos = getDoneTodo(filter_todo_list)
+
+    print(doneTodos)
+
+    todo = {
+        'doneNum': doneNum,
+        'notDoneNum': notDoneNum,
+        'doneTodos': doneTodos,
+        'notDoneTodos': notDoneTodos
+    }
+
+    # filter_todo_list.reverse()
+    # print('filterTODO', filter_todo_list, type(filter_todo_list))
+
+    return jsonify(todo)
+
+
 # 处理数据返回重定向
-@main.route('/edit/<id>')
+@main.route('/edit/<id>', methods=['POST'])
 def edit(id):
     m = Model.query.get(id)
     return render_template('todo/edit.html', todo=m)
@@ -79,8 +115,17 @@ def add():
 @main.route('/update/<id>', methods=['POST'])
 def update(id):
     form = request.form
+    # print('update', form.get('task'))
     Model.update(id, form)
-    return redirect(url_for('ajax_todo.index'))
+    data = {
+        "status":
+            {
+                "success": True,
+                "code": 200,
+                "message": "ajax update success."
+            }
+    }
+    return jsonify(data)
 
 
 @main.route('/delete/<int:id>')
@@ -100,9 +145,26 @@ def delete(id):
 @main.route('/complete/<int:id>')
 def complete(id):
     Model.complete(id)
-    return redirect(url_for('ajax_todo.index'))
+    data = {
+        "status":
+            {
+                "success": True,
+                "code": 200,
+                "message": "ajax complete(id:{}) success.".format(id)
+            }
+    }
+
+    return jsonify(data)
 
 @main.route('/uncomplete/<int:id>')
 def undo_complete(id):
     Model.undo_complete(id)
-    return redirect(url_for('ajax_todo.index'))
+    data = {
+        "status":
+            {
+                "success": True,
+                "code": 200,
+                "message": "ajax uncomplete(id:{}) success.".format(id)
+            }
+    }
+    return jsonify(data)

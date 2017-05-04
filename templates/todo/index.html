@@ -3,9 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>todo</title>
+    <title>Todo-List</title>
     <link rel="stylesheet" href="/static/css/todo_index.css">
-    <script type="text/javascript" src="/static/js/jquery.form.js"></script>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <!-- 可选的Bootstrap主题文件（一般不用引入） -->
@@ -16,57 +15,56 @@
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <!-- custom  -->
-    <script type="text/javascript" src="/static/js/jquery.form.js"></script>
+
 
 </head>
 
 <body>
 
     <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">{{ cuurent_user.username }}'s Todo</a>
-    </div>
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">{{ cuurent_user.username }}'s Todo</a>
+        </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-            {% if cuurent_user.username != 'Guest' %}
-                <li><a href="{{ url_for('user.logout') }}">Logout </a></li>
-            {% endif %}
-            {% if cuurent_user.username == 'Guest' %}
-                <li><a href="{{ url_for('user.register') }}" >Register</a></li>
-                <li><a href="{{ url_for('user.login') }}">Login </a></li>
-            {% endif %}
-        </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="{{ url_for('ajax_todo.index') }}">Ajax Todo</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="http://blog.yinhaotian.me">Haotian's Blog</a></li>
-              <li><a href="https://github.com/yinhaoti">Haotian's Github</a></li>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                {% if cuurent_user.username != 'Guest' %}
+                    <li><a href="{{ url_for('user.logout') }}">Logout </a></li>
+                {% endif %}
+                {% if cuurent_user.username == 'Guest' %}
+                    <li><a href="{{ url_for('user.register') }}" >Register</a></li>
+                    <li><a href="{{ url_for('user.login') }}">Login </a></li>
+                {% endif %}
+            </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{{ url_for('ajax_todo.index') }}">Ajax Todo</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="http://blog.yinhaotian.me">Haotian's Blog</a></li>
+                  <li><a href="https://github.com/yinhaoti">Haotian's Github</a></li>
+              </ul>
+            </li>
           </ul>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
 
     <div class="container-fluid">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2">
             <h1 class="text-center">Todo List
-            <small>Beta</small>
-        </h1>
+                <small>Beta</small>
+            </h1>
             <div class="user_input">
                 <form action="{{ url_for('.add') }}" method="post" class="form-horizontal" role="form" class="row">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1">
@@ -154,6 +152,7 @@
             </div>
         </div>
     </div>
+
 
 </body>
 

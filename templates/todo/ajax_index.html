@@ -3,9 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>todo</title>
+    <title>Todo-List</title>
     <link rel="stylesheet" href="/static/css/todo_index.css">
-    <script type="text/javascript" src="/static/js/jquery.form.js"></script>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <!-- 可选的Bootstrap主题文件（一般不用引入） -->
@@ -17,9 +16,7 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <!-- custom  -->
-
     <script type="text/javascript" src="/static/js/ajax_todo.js"></script>
-    <script type="text/javascript" src="/static/js/jquery.form.js"></script>
 
 </head>
 
@@ -70,12 +67,12 @@
             <small>Beta</small>
         </h1>
             <div class="user_input">
-                <form id="ajax_form" action="{{ url_for('ajax_todo.add') }}" method="post" class="form-horizontal" role="form" class="row">
+                <form id="ajax_form" method="post" class="form-horizontal" role="form" class="row">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                         <div class="input-group">
                             <input type="text" name="task" class="form-control" id="inputTodo" placeholder="输入 Todo">
                             <span class="input-group-btn">
-                            <button id="ajax_form_button" type="submit button" class="btn btn-primary">
+                            <button id="ajax_form_button" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-ok"></span>
                             </button>
                             </span>
@@ -91,7 +88,7 @@
                 <h4>正在进行 <span id='processing_badge' class="badge">{{ unfinished_num }}</span> </h4>
 
             <div id="processing">
-            {% for todo in todo_list if todo.done == 'False' %}
+            <!--{% for todo in todo_list if todo.done == 'False' %}
                 <div class="panel panel-default row">
                     <div class="panel-body task_content" id="task_{{ todo.id }}">
                         <form action="{{ url_for('.update', id=todo.id) }}" method="post">
@@ -107,9 +104,6 @@
                     </div>
                     <div class="panel-footer small task_footer">
                         {{ todo.created_time}}
-                        <!--
-                    <div id="edit"><a href="{{ url_for('.edit', id=todo.id) }}">修改</a></div>
-                     -->
                         <div class="complete">
                             <a href="{{ url_for('.complete', id=todo.id) }}">
                                 <button class="btn btn-sm active" type="button" style="background:transparent;border:0;box-shadow:0 0 0 0;">
@@ -120,10 +114,12 @@
                     </div>
                 </div>
                 {% endfor %}
+                -->
             </div>
 
                 <h4>已完成 <span id='finished_badge' class="badge">{{ finished_num }}</span></h4>
             <div id="completed">
+                <!--
             {% for todo in todo_list if todo.done != 'False' %}
                 <div class="panel panel-default row">
                     <div class="panel-body task_content" id="task_{{ todo.id }}">
@@ -140,9 +136,6 @@
                     </div>
                     <div class="panel-footer small task_footer">
                         {{ todo.created_time }}
-                        <!--
-                    <div id="edit"><a href="{{ url_for('.edit', id=todo.id) }}">修改</a></div>
-                     -->
 
                         <div class="complete">
                             <a href="{{ url_for('.undo_complete', id=todo.id) }}">
@@ -154,9 +147,12 @@
                     </div>
                 </div>
                 {% endfor %}
+                -->
             </div>
         </div>
     </div>
+
+
 
 </body>
 
