@@ -2,7 +2,6 @@
 This is a TodoList app based on Flask+Gunicorn+Nginx+Supervisor
 
 
-
 # 开发日志
 
 ### Version 0.1
@@ -41,6 +40,7 @@ This is a TodoList app based on Flask+Gunicorn+Nginx+Supervisor
 2. 完全替代jinja2模板，实现前后端分离
 
 ### 下一个版本:
+- 可能存在的显示排序的bug
 3. ajax的登录注册弹框功能
 4. 获得免费的https证书
 
