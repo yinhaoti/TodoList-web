@@ -1,4 +1,3 @@
-
 # 指定基础image
 FROM yinhaoti/python-dev-base
 MAINTAINER yinhaotian hautienyin@qq.com
@@ -25,4 +24,6 @@ CMD "echo" "wtf_chat_robot docker build sucess!"
 # docker run -d --restart=always -v $(pwd):/yinhaotian/wtf_chat_robot/ --name chatbot yinhaoti/chatbot /bin/bash -c 'python3 -u ./WSGI_Debian_wechat.py'
 # 查看输出日志
 # docker logs -f chatbot
+
+
 
